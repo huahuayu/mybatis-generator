@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动包位置，可以写相对或绝对位置，8.x数据库用8.x的驱动，5.x数据库用5.x驱动 -->
+    <classPathEntry location="mysql-connector-java-8.0.17.jar" />
+    <!-- <classPathEntry location="mysql-connector-java-5.1.48" /> -->
+    <!-- <classPathEntry location="C:\oracle\product\10.2.0\db_1\jdbc\lib\ojdbc14.jar" />-->
+
+    <!-- 一个数据库一个context,context的子元素必须按照它给出的顺序
+        property*,plugin*,commentGenerator?,jdbcConnection,javaTypeResolver?,
+        javaModelGenerator,sqlMapGenerator?,javaClientGenerator?,table+
+    -->
+    <context id="myContext" targetRuntime="MyBatis3">
+        <!-- 数据库关键字冲突,自动处理 -->
+        <property name="autoDelimitKeywords" value="true" />
+        <!-- 用反引号`包裹,默认是双引号"-->
+        <property name="beginningDelimiter" value="`" />
+        <property name="endingDelimiter" value="`" />
+
+        <!--使生成的model包含toString方法-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <!--使生成的model实现可序列化接口-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!--在mapper接口上加上@Mapper注解-->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin" />
+        
+
+        <commentGenerator>
+            <!-- 添加 db 表中字段的注释 -->
+            <property name="addRemarkComments" value="true" />
+            <!-- 不希望生成的注释中包含时间戳 -->
+            <property name="suppressDate" value="true" />
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- 数据库链接URL、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/your_schema?characterEncoding=utf-8" userId="user" password="verySecurityPassword">
+        <!--<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="msa" password="msa">-->
+            <!-- 使用指定的数据库来执行查询语句，避免遍历当前链接下的所有数据库进行查询（避免将别的schema中的同名表加载进来） -->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <!--是否使用 bigDecimal，默认false。
+                false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
+                true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
+            -->
+            <property name="forceBigDecimals" value="false" />
+            <!--默认false
+                false，将所有 JDBC 的时间类型解析为 java.util.Date
+                true，将 JDBC 的时间类型按如下规则解析
+                DATE	                -> java.time.LocalDate
+                TIME	                -> java.time.LocalTime
+                TIMESTAMP                   -> java.time.LocalDateTime
+                TIME_WITH_TIMEZONE  	-> java.time.OffsetTime
+                TIMESTAMP_WITH_TIMEZONE	-> java.time.OffsetDateTime
+            -->
+            <property name="useJSR310Types" value="false" />
+        </javaTypeResolver>
+
+        <!-- 生成模型的包名和位置, targetProject可以是相对路径或者是绝对路径，但是目录必须先建好，mbg不会自动建目录 -->
+        <javaModelGenerator targetPackage="com.defang.ruleng.mybatis.model" targetProject="src">
+            <!-- 是否让schema作为包的后缀，默认为false -->
+            <property name="enableSubPackages" value="true" />
+            <!-- 是否针对string类型的字段在set方法中进行修剪，默认false -->
+            <property name="trimStrings" value="false" />
+        </javaModelGenerator>
+        <!-- 生成的映射文件包名和位置 -->
+        <sqlMapGenerator targetPackage="com.defang.ruleng.mybatis.mapping" targetProject="src">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.defang.ruleng.mybatis.dao" targetProject="src">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
+        <table tableName="t_project" domainObjectName="Project" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+        <table tableName="t_product" domainObjectName="Product" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+
+    </context>
+</generatorConfiguration>
