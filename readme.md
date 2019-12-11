@@ -3,6 +3,10 @@
 
 ## Usage
 ### step1:克隆项目
+``` bash
+git clone git@github.com:huahuayu/mybatis-generator.git
+cd mybatis-generator
+```
 
 ### step2:修改配置文件
 打开配置文件`generatorConfig.xml`
@@ -11,7 +15,7 @@
 3. 修改table标签的表名和object名
 
 ### step3:执行代码生成命令
-```
+``` bash
 java -jar mybatis-generator-core-1.3.7.jar -configfile generatorConfig.xml -overwrite
 ```
 生成的代码会在`src`目录下
