@@ -19,3 +19,6 @@ cd mybatis-generator
 java -jar mybatis-generator-core-1.3.7.jar -configfile generatorConfig.xml -overwrite
 ```
 生成的代码会在`src`目录下
+
+## 问题反馈
+https://github.com/huahuayu/mybatis-generator/issues
